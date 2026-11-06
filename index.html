@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>动作镜头版本全览</title>
+<style>
+:root{--bg:#f6f5f2;--fg:#1d1d1f;--mut:#6b6b70;--card:#fff;--line:#e3e1dc;--acc:#b4441f;--chip:#efece6;--add:#1f7a3a;--rem:#b3261e;--lost:#a06a00}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececee;--mut:#9a9aa2;--card:#1d1d21;--line:#2e2e34;--acc:#ff8a5c;--chip:#26262b;--add:#5fd38a;--rem:#ff7b72;--lost:#e0b04a}}
+*{box-sizing:border-box}body{margin:0;overflow-wrap:anywhere;background:var(--bg);color:var(--fg);font:15px/1.6 "Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+h1{font-size:20px;margin:0 0 8px}
+.tabs{display:flex;flex-direction:column;gap:6px}
+.trow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tlab{font-size:13px;font-weight:700;color:var(--mut);min-width:170px}
+.tabs button{min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);font:inherit;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.tabs button.wip{opacity:.6}
+main{padding:16px 20px 60px;max-width:1700px}
+.meta{color:var(--mut);font-size:13.5px}
+.cards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.cards div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-width:110px}
+.cards b{display:block;font-size:20px}
+.prob{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rem);border-radius:10px;padding:10px 14px;margin:10px 0}
+.film{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--add);border-radius:10px;padding:12px 14px;margin:12px 0;display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:14px;align-items:start}
+.film h3{margin:0 0 6px;font-size:18px}
+.film video{width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;display:block}
+.film .k{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:8px}
+.film p{margin:2px 0}
+.badge{display:inline-block;border-radius:99px;padding:0 10px;font-size:13px;font-weight:700;color:#fff;background:var(--add)}
+.badge.s{background:var(--lost)}.badge.n{background:var(--rem)}
+@media (max-width:900px){.film{grid-template-columns:1fr}}
+.evo{margin:14px 0 6px}
+.evo h3{margin:0 0 6px;font-size:18px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+th{background:var(--chip);font-weight:600}
+th:first-child{white-space:nowrap}td:first-child{white-space:nowrap;font-weight:700;color:var(--acc);width:1%}
+.gov h3{margin:22px 0 6px;font-size:18px}
+.gwrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:12px}
+.gcard{min-width:0;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.gcard h4{margin:0 0 4px;font-size:17px;color:var(--acc)}
+.gcard .k{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:8px}
+.gcard p{margin:2px 0}
+.ins{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.in{width:108px;font-size:11px;color:var(--mut);word-break:break-all}
+.in img{width:108px;height:72px;object-fit:cover;border-radius:6px;display:block;background:var(--chip);cursor:zoom-in}
+.in.a img,.in.a .ph{outline:3px solid var(--add)}.in.r img,.in.r .ph{outline:3px solid var(--rem);opacity:.55}.in.lost .ph{outline:2px dashed var(--lost);color:var(--lost)}
+.in .ph{width:108px;height:72px;border-radius:6px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:11px;text-align:center;padding:4px}
+.gv{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px;margin-top:8px}
+.v{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.v video{width:100%;aspect-ratio:16/9;background:#000;display:block;object-fit:contain}
+.v div{font-size:11.5px;padding:3px 8px;color:var(--mut)}
+.chip{display:inline-block;background:var(--chip);border-radius:99px;padding:0 8px;font-size:12.5px;margin-right:4px;color:var(--mut)}
+details.grp{margin:10px 0;border-left:3px solid var(--acc);padding-left:10px}
+details.grp>summary,details.ver>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+details.grp>summary{font-weight:600}
+details.ver{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:6px 0;padding:0 12px}
+pre{white-space:pre-wrap;font-size:12px;max-height:420px;overflow:auto;background:var(--chip);padding:8px;border-radius:6px}
+textarea{width:100%;min-height:54px;margin-top:10px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit}
+.wipbox{padding:40px 20px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
+#lb{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:16px;cursor:zoom-out}
+#lb[hidden]{display:none}
+#lb img{max-width:100%;max-height:88vh;border-radius:6px}
+#lb div{color:#ddd;font-size:13px}
+#out{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:8px 16px;display:flex;gap:12px;align-items:center;z-index:6}
+#out button{min-height:40px;padding:0 18px;border:0;border-radius:8px;background:var(--acc);color:#fff;font:inherit;cursor:pointer}
+#msg{color:var(--mut);font-size:13px;white-space:pre-wrap;max-height:30vh;overflow:auto;flex:1}
+.v25{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:10px;padding:12px 14px;margin:12px 0}
+.v25 h3{font-size:18px;margin:0 0 6px}
+.v25row{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));gap:12px;margin:8px 0 6px}
+.v25c video{width:100%;aspect-ratio:21/9;background:#000;border-radius:8px;display:block}
+.v25c .v25cap{font-size:13px;margin-top:6px}
+.v25c p{margin:4px 0}
+@media (max-width:600px){.gwrap,.gv,.v25row{grid-template-columns:1fr}main{padding:12px 12px 70px}.tlab{min-width:0;width:100%}}
+</style></head><body>
+<header><h1>动作镜头 · 版本全览（14 期 · CHB 3 个 + HG 3 个）</h1><div class="tabs" role="tablist" id="tabs"></div></header>
+<main id="main"></main>
+<div id="lb" hidden><img alt=""><div></div></div>
+<div id="out"><button id="copy">复制全部备注</button><span id="msg"></span></div>
+<script>
+const SHOTS=[
+ ['CHB','104','104 冲出门躲吧台'],['CHB','31','31 Tobin 开枪 1000fps'],['CHB','99D','99/5 Dmitry 烟雾对射'],
+ ['HG','HG39','39 A-B 斩断立柱'],['HG','HG51','51 弹弓炸石像'],['HG','HG36','36 从墙上坠落']];
+const KEY='hg14_vernotes';let NOTES={};try{NOTES=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const N=x=>(+x||0).toLocaleString('zh-CN');
+window.GRP=window.GRP||{};window.EVO=window.EVO||{};window.SHOT=window.SHOT||{};
+const loaded={};
+function load(f){if(loaded[f])return loaded[f];return loaded[f]=new Promise(r=>{const s=document.createElement('script');s.src=f+'?t='+Date.now();s.onload=()=>r(true);s.onerror=()=>{delete loaded[f];r(false)};document.head.appendChild(s)})}
+window.FILM=window.FILM||{};window.V25=window.V25||{};
+async function loadShot(k){await Promise.all([load('groups_'+k+'.js'),load('evo_'+k+'.js'),load('data_'+k+'.js'),load('film_'+k+'.js'),load('v25_'+k+'.js')]);return GRP[k]}
+function filmHtml(k){const F=FILM[k];if(!F)return `<div class="film" style="display:block"><h3>成片片段</h3><div class="meta">整理中</div></div>`;
+ const cls=F.status==='目检确认'?'':(F.status==='疑似'?'s':'n');
+ return `<div class="film"><div>${F.loc?`<video controls playsinline preload="metadata" src="${F.loc}"></video>`:'<div class="wipbox" style="margin:0">成片里没找到</div>'}</div>
+ <div><h3>成片片段 <span class="badge ${cls}">${esc(F.status)}</span></h3>
+ <div class="meta">${F.pf==='HG'?'Hell Grind':'The Cully Hill Boys'} 正片 · ${esc(F.tc||'')}${F.clip?` · 片段剪的是 ${esc(F.clip)}`:''}</div>
+ <div class="k">对上的生成</div><p>${esc(F.take)}</p>
+ <div class="k">成片里这一拍是什么样</div><p>${esc(F.how)}</p>
+ ${F.checked?`<div class="k">怎么定位的 / 查了哪些范围</div><p class="meta">${esc(F.checked)}</p>`:''}</div></div>`}
+function inHtml(lst){return (lst||[]).map(x=>`<div class="in ${x.c||''}">${x.t?`<img src="${x.t}" data-f="${x.f||x.t}" alt="${esc(x.n)}" loading="lazy">`:`<div class="ph">${x.c==='lost'?'挂过但已丢失':'无缩略图'}</div>`}${esc(x.n)}</div>`).join('')}
+function vid(x){const cap=`<b>${esc(x.pos||'')}</b> · 第 ${x.ver} 版 · ${esc(x.id)} · ${esc(x.ts)} UTC${x.d?` · ${x.d}s`:''}`;
+ return x.loc?`<div class="v"><video controls playsinline loop preload="metadata" src="${x.loc}#t=1"></video><div>${cap}</div></div>`:`<div class="v"><video controls playsinline loop preload="none" src="${esc(x.url)}"></video><div>${cap} · 在线</div></div>`}
+function v25Html(k){const V=V25[k];if(!V)return '';
+ const card=x=>`<div class="v25c"><video controls playsinline preload="metadata" src="${x.loc}"></video>
+  <div class="v25cap"><b>${esc(x.label)}</b>${x.dur?` · ${esc(x.dur)}`:''}${x.id?` · ${esc(x.id)}`:''}</div>
+  ${x.obs?`<p class="meta">${esc(x.obs)}</p>`:''}</div>`;
+ const has=V.same&&V.same.length;
+ let h=`<div class="v25"><h3>2.5 · 同提示词重跑 <span class="badge ${has?'':'n'}">${has?'同镜头':'无同镜头'}</span></h3>
+ <div class="meta">${esc(V.note||'')}</div>`;
+ if(has)h+=`<div class="k">同一单元、同一条提示词</div><div class="v25row">${V.same.map(card).join('')}</div>`;
+ if(V.scene&&V.scene.length)h+=`<div class="k">同场另一拍（提示词不同，不能当对照）</div><div class="v25row">${V.scene.map(card).join('')}</div>`;
+ return h+'</div>'}
+function evoHtml(k){const e=EVO[k];if(!e)return `<div class="evo"><h3>问题句演化总表</h3><div class="meta">整理中</div></div>`;
+ return `<div class="evo"><h3>问题句演化总表</h3><div class="meta">针对：${esc(e.problem)}。只读提示词；每行只写这句话在这一版改成了什么，没列出的版本沿用上一行写法。</div>
+ <div class="tw"><table><thead><tr><th>版本</th><th>写法</th></tr></thead><tbody>${e.rows.map(r=>`<tr><td>${esc(r.v)}</td><td>${esc(r.w)}</td></tr>`).join('')}</tbody></table></div>${e.note?`<p class="meta">${esc(e.note)}</p>`:''}</div>`}
+function govHtml(k,gs){
+ return `<div class="gov"><h3>大版本（${gs.length} 个）</h3><div class="meta">每个大版本取按生成时间的第一条、中间一条、最后一条；参考图以该大版最后一版为准，绿框=比上一大版新增，红框=去掉，虚线=提示词里有标签但挂载已丢失。</div>
+ <div class="gwrap">${gs.map(g=>`<div class="gcard"><h4>G${g.no}</h4>
+ <div class="meta">${esc(g.t0)} → ${esc(g.t1)} UTC · v${g.v0}–v${g.v1}（${g.nv} 版）· ${N(g.n)} 条 · ${esc((g.users||[]).join('/'))}</div>
+ <div class="k">切分依据</div><p>${esc(g.basis)}</p>
+ <div class="k">和上一大版相比改了什么</div><p>${esc(g.chg)}</p>
+ <div class="k">这一大版内部反复调什么</div><p>${esc(g.tune)}</p>
+ <div class="k">Input 图</div><div class="ins">${inHtml(g.gins)}</div>
+ <div class="k">首 / 中 / 末三条</div><div class="gv">${(g.reps||[]).map(vid).join('')}</div>
+ <textarea data-k="${k}_G${g.no}" placeholder="EV 备注（G${g.no}）">${esc(NOTES[k+'_G'+g.no]||'')}</textarea></div>`).join('')}</div></div>`}
+function verHtml(k,gs){const vs=SHOT[k];if(!vs||!vs.length)return '';
+ return `<h3 style="margin-top:24px">小版本提示词（折叠）</h3>${gs.map(g=>`<details class="grp"><summary>G${g.no} · v${g.v0}–v${g.v1}</summary>${vs.filter(v=>(v.group||0)==g.no).map(v=>`<details class="ver"><summary><b>v${v.no}</b><span class="chip">${esc(v.t0)}</span><span class="chip">${v.n} 条</span><span class="chip">${esc((v.users||[]).join('/'))}</span></summary><pre>${esc(v.prompt)}</pre></details>`).join('')}</details>`).join('')}`}
+async function show(k){
+ document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k));
+ try{localStorage.setItem(KEY+'_tab',k)}catch(e){}
+ const M=document.getElementById('main');M.innerHTML='<p class="meta">加载中…</p>';
+ const G=await loadShot(k);const s=SHOTS.find(x=>x[1]===k);
+ if(!G){M.innerHTML=`<h2>${s[0]} · ${esc(s[2])}</h2><div class="wipbox">整理中，稍后刷新</div>`;return}
+ const m=G.meta;const users=Object.entries(m.users||{}).map(([u,c])=>`${u}×${c}`).join('、');
+ M.innerHTML=`<h2>${m.pf==='HG'?'HG《Hell Grind》':'CHB'} · ${esc(m.title)}</h2><div class="meta">范围：${esc(m.scope)}</div>
+ <div class="cards"><div><b>${m.nver}</b>版</div><div><b>${N(m.n)}</b>条</div><div><b>${esc(m.t0)} → ${esc(m.t1)}</b>UTC</div><div><b>${G.groups.length}</b>个大版本</div><div><b>${Object.keys(m.users||{}).length}</b>个账号</div></div>
+ <div class="meta">账号：${esc(users)}</div>
+ <div class="prob"><b>EV 认定的错：</b>${esc(m.problem)}</div>
+ ${filmHtml(k)}${evoHtml(k)}${govHtml(k,G.groups)}${v25Html(k)}${verHtml(k,G.groups)}`;
+}
+document.getElementById('main').addEventListener('input',e=>{const t=e.target;if(t.tagName==='TEXTAREA'){NOTES[t.dataset.k]=t.value;try{localStorage.setItem(KEY,JSON.stringify(NOTES))}catch(e){}}});
+const LB=document.getElementById('lb');document.addEventListener('click',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.f){LB.querySelector('img').src=t.dataset.f;LB.querySelector('div').textContent=t.alt;LB.hidden=false}else if(LB.contains(t)){LB.hidden=true}});document.addEventListener('keydown',e=>{if(e.key==='Escape')LB.hidden=true});
+const T=document.getElementById('tabs');
+[['CHB','CHB · The Cully Hill Boys'],['HG','HG · Hell Grind']].forEach(([pf,lab])=>{const row=document.createElement('div');row.className='trow';row.innerHTML=`<span class="tlab">${lab}</span>`;SHOTS.filter(x=>x[0]===pf).forEach(([p,k,t])=>{const b=document.createElement('button');b.role='tab';b.dataset.k=k;b.textContent=t;b.onclick=()=>show(k);row.appendChild(b)});T.appendChild(row)});
+let first=SHOTS[0][1];try{const s=localStorage.getItem(KEY+'_tab');if(s&&SHOTS.some(x=>x[1]===s))first=s}catch(e){}
+show(first);
+document.getElementById('copy').onclick=async()=>{
+ const keys=Object.keys(NOTES).filter(k=>NOTES[k]&&NOTES[k].trim());
+ const txt=keys.length?keys.sort().map(k=>{const i=k.lastIndexOf('_');return `[${k.slice(0,i)} ${k.slice(i+1)}] ${NOTES[k].trim()}`}).join('\n'):'（还没有备注）';
+ const msg=document.getElementById('msg');
+ try{await navigator.clipboard.writeText(txt);msg.textContent='已复制 '+keys.length+' 条备注'}catch(e){msg.textContent=txt}
+};
+</script></body></html>
